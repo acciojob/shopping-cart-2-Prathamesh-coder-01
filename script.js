@@ -1,11 +1,7 @@
-//your code here
 const nameInput = document.getElementById("item-name-input");
 const priceInput = document.getElementById("item-price-input");
 const addBtn = document.getElementById("add-btn");
 const tableBody = document.getElementById("table-body");
-const grandTotal = document.querySelector(
-  '[data-ns-test="grandTotal"]'
-);
 
 let total = 0;
 
@@ -18,12 +14,14 @@ addBtn.addEventListener("click", () => {
     return;
   }
 
-  // Remove initial Grand Total row
-  if (tableBody.rows.length === 1) {
-    tableBody.innerHTML = "";
-  }
+  // Remove existing Grand Total row
+  const oldTotalRow = document
+    .querySelector('[data-ns-test="grandTotal"]')
+    .parentElement;
 
-  // Create item row
+  oldTotalRow.remove();
+
+  // Create new item row
   const row = document.createElement("tr");
 
   const nameCell = document.createElement("td");
@@ -42,7 +40,7 @@ addBtn.addEventListener("click", () => {
   // Update total
   total += price;
 
-  // Grand total row
+  // Create Grand Total row again
   const totalRow = document.createElement("tr");
 
   const totalText = document.createElement("td");
@@ -57,7 +55,7 @@ addBtn.addEventListener("click", () => {
 
   tableBody.appendChild(totalRow);
 
-  // Clear inputs
+  // Clear input fields
   nameInput.value = "";
   priceInput.value = "";
 });
